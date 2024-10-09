@@ -21,7 +21,7 @@ int main()
 	float inclinationLineY = 0.0;
 
 
-	cout << "Enter two float numbers (up to the 3rd digit after the decimal point) so you can see where it lands on the given graph!" << endl;
+	cout << "Enter two float numbers (up to the 3rd digit after the decimal point) so you can see where it lands on the given graph!" << endl << endl;
 	cout << "Enter first number: ";
 	cin >> inputNumber_X;
 	cout << "Enter second number: ";
@@ -104,9 +104,23 @@ int main()
 		}
 	}
 
-
-
-
+	//Checks if the dot is on the Grey Area
+	if (inputNumber_X >= -2 && inputNumber_X <= 2) {
+		//Checks if the dot is on the edge of the Grey Area
+		if (inputNumber_Y == -6 || inputNumber_Y == -7) {
+			cout << "On the edge!";
+		}
+		//Checks if the dot is on the edge of the Grey Area
+		if (inputNumber_X == 2 || inputNumber_X == -2) {
+			if (inputNumber_Y <= -6 && inputNumber_Y >= -7) {
+				cout << "On the edge!";
+			}
+		}
+		//Checks if the dot is in the Grey Area
+		if (inputNumber_Y <= -6 && inputNumber_Y >= -7) {
+			cout << "Grey!";
+		}
+	}
 
 	//Checks if the dot is in the circle
 	if (sum_Xsquared_and_Ysquared < squaredRadius) {
@@ -143,13 +157,13 @@ int main()
 
 
 
+
 }
 //Formula needed to check if the dot is on the circle
 void CheckCircleCoordinates(float x, float y, float radius, float& sum_Xsquared_and_Ysquared, float& squaredRadius) {
 	sum_Xsquared_and_Ysquared = (x * x) + (y * y);
 	squaredRadius = radius * radius;
 }
-
 
 
 
