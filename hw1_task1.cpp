@@ -14,7 +14,8 @@ int main()
 	float triangleSide = 3.0;
 	float squaredRadius = 0.0;
 	float eps = 1e-3;
-	float inclinationRadius = 0.0;
+	float inclinationRadiusO_B = 0.0;
+	float inclinationRadiusO_C = 0.0;
 	float inclinationUser = 0.0;
 	float inclinationLineY = 0.0;
 
@@ -24,6 +25,7 @@ int main()
 	cin >> inputNumber_X;
 	cout << "Enter second number: ";
 	cin >> inputNumber_Y;
+	cout << endl;
 
 
 	//Formula needed to check if the dot is on the circle
@@ -36,7 +38,7 @@ int main()
 	inclinationUser = inputNumber_Y / inputNumber_X;
 
 	//Calculates the inclination of the radius
-	inclinationRadius = lineX_B / triangleSide;
+	inclinationRadiusO_B = lineX_B / triangleSide;
 
 
 	// If X is bigger than 4 and smalled than -4 it doesn`t matter what the value of Y will be cause it will be always out of the graph
@@ -64,18 +66,27 @@ int main()
 	}
 
 	//Checks if the dot is on the radius O-B
-	if (abs(inclinationRadius - inclinationUser) < eps) {
+	if (abs(inclinationRadiusO_B - inclinationUser) < eps) {
 		cout << "On the edge!";
 	}
 
+
+
 	//Checks if the dot is in the circle
 	if (sum_Xsquared_and_Ysquared < squaredRadius) {
-		// Checks if it is in the Green area
-		if (inclinationUser > inclinationRadius && inputNumber_Y < 4) {
-			cout << "Grey!";
+		// Checks if the dot is in the Green area
+		if (inclinationUser > inclinationRadiusO_B && inputNumber_Y < 4) {
+			cout << "Green!";
+		}
+		// Checks if the dot is in the Yellow area
+		if (inclinationUser < inclinationRadiusO_B && inputNumber_X < 3) {
+			cout << "Yellow!";
+		}
+		// Checks if the dot is in the Purple area
+		if (inclinationUser < inclinationRadiusO_B && inputNumber_X > 3) {
+			cout << "Purple!";
 		}
 	}
-
 
 
 
@@ -86,5 +97,3 @@ void CheckCircleCoordinates(float x, float y, float radius, float& sum_Xsquared_
 	sum_Xsquared_and_Ysquared = (x * x) + (y * y);
 	squaredRadius = radius * radius;
 }
-
-
