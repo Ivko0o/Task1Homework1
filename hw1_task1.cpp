@@ -39,7 +39,7 @@ int main()
 	inclinationUser = inputNumber_Y / inputNumber_X;
 
 	//Calculates the inclination of the radius
-	inclinationRadiusO_B = lineX_B / triangleSideА;								//This can be used for the radius O-D as well
+	inclinationRadiusO_B = lineX_B / triangleSideА;								//This can be used for the radius O-D as well because the calculations are the same
 	inclinationRadiusO_C = lineX_B / triangleSideB;
 
 
@@ -52,32 +52,66 @@ int main()
 	// Checks if the dot is on the circle
 	if (abs(sum_Xsquared_and_Ysquared - squaredRadius) < eps) {
 		cout << "On the edge!";
+		return 0;
 	}
 
 	//Checks if the dot is on the Y axis
 	if (inputNumber_X == 0) {
 		if (inputNumber_Y <= 6 && inputNumber_Y >= -6) {
 			cout << "On the edge!";
+			return 0;
 		}
 	}
 	//Checks if the dot is on the F-I line
 	if (inputNumber_X >= -1 && inputNumber_X <= 1) {
 		if (inputNumber_Y == 5) {
 			cout << "On the edge!";
+			return 0;
 		}
 	}
 
 	//Checks if the dot is on the radius O-B
 	if (abs(inclinationRadiusO_B - inclinationUser) < eps) {
 		cout << "On the edge!";
+		return 0;
 	}
+
+	//Checks if the dot is on the radius O-C
+	if (abs(inclinationRadiusO_C - inclinationUser) < eps) {
+		cout << "On the edge!";
+		return 0;
+	}
+
+	//Checks if the dot is on the radious O-D
+	if (abs(inputNumber_Y - (inclinationRadiusO_B * inputNumber_X)) < eps) {
+		cout << "On the edge!";
+		return 0;
+	}
+
+	//Checks if the dot is on the A-B line
+	if (inputNumber_X == 3) {
+		if (inputNumber_Y < 2.645 && inputNumber_Y > -2.645) {
+			cout << "On the edge!";
+			return 0;
+		}
+	}
+
+	//Checks if the dot is on the C-D line
+	if (inputNumber_X == -3) {
+		if (inputNumber_Y < 2.645 && inputNumber_Y > -2.645) {
+			cout << "On the edge!";
+			return 0;
+		}
+	}
+
+
 
 
 
 	//Checks if the dot is in the circle
 	if (sum_Xsquared_and_Ysquared < squaredRadius) {
 		// Checks if the dot is in the Green area
-		if (inclinationUser > inclinationRadiusO_B && inputNumber_Y < 4) {
+		if (inclinationUser > inclinationRadiusO_B && inputNumber_Y < 4 && inputNumber_Y > 0) {
 			cout << "Green!";
 		}
 		// Checks if the dot is in the Yellow area
@@ -89,16 +123,20 @@ int main()
 			cout << "Purple!";
 		}
 		// Checks if the dot is in the Red area
-		if (inclinationUser < inclinationRadiusO_C && inputNumber_Y < 4) {
+		if (inclinationUser < inclinationRadiusO_C && inputNumber_Y < 4 && inputNumber_Y > 0) {
 			cout << "Red!";
 		}
 		//Checks if the dot is in the Pink area
-		if (inclinationUser > inclinationRadiusO_C && inclinationUser < inclinationRadiusO_B && inputNumber_X > -3) {
+		if (inclinationUser > inclinationRadiusO_C && inclinationUser < inclinationRadiusO_B && inputNumber_X > -3 && inputNumber_X < 0) {
 			cout << "Pink!";
 		}
 		//Checks if the dot is in the Empty space of the circle
 		if (inclinationUser > inclinationRadiusO_C && inclinationUser < inclinationRadiusO_B && inputNumber_X < -3) {
 			cout << "Outside!";
+		}
+		//Checks if the dot is in the Blue area
+		if (inclinationUser > inclinationRadiusO_B && inputNumber_Y < 0) {
+			cout << "Blue!";
 		}
 	}
 
@@ -111,6 +149,7 @@ void CheckCircleCoordinates(float x, float y, float radius, float& sum_Xsquared_
 	sum_Xsquared_and_Ysquared = (x * x) + (y * y);
 	squaredRadius = radius * radius;
 }
+
 
 
 
