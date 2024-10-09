@@ -16,6 +16,7 @@ int main()
 	float eps = 1e-3;
 	float inclinationRadius = 0.0;
 	float inclinationUser = 0.0;
+	float inclinationLineY = 0.0;
 
 
 	cout << "Enter two float numbers (up to the 3rd digit after the decimal point) so you can see where it lands on the given graph!" << endl;
@@ -29,7 +30,7 @@ int main()
 	CheckCircleCoordinates(inputNumber_X, inputNumber_Y, radius, sum_Xsquared_and_Ysquared, squaredRadius);
 
 	//Calculates the line from the axis X to the point B
-	float lineX_B = sqrt((radius * radius) - (triangleSide * triangleSide));
+	float lineX_B = sqrt((radius * radius) - (triangleSide * triangleSide));                // Тhis is needed so we can find the coordinate of dot B
 
 	//Calculates the inclination of the dot given by the user
 	inclinationUser = inputNumber_Y / inputNumber_X;
@@ -38,7 +39,7 @@ int main()
 	inclinationRadius = lineX_B / triangleSide;
 
 
-	// Checks if the dot lands somewhere in the outlined graph 
+	// If X is bigger than 4 and smalled than -4 it doesn`t matter what the value of Y will be cause it will be always out of the graph
 	if (inputNumber_X > 4 || inputNumber_X < -4) {
 		cout << "Outside!";
 		return 0;
@@ -66,6 +67,15 @@ int main()
 	if (abs(inclinationRadius - inclinationUser) < eps) {
 		cout << "On the edge!";
 	}
+
+	//Checks if the dot is in the circle
+	if (sum_Xsquared_and_Ysquared < squaredRadius) {
+		// Checks if it is in the Green area
+		if (inclinationUser > inclinationRadius && inputNumber_Y < 4) {
+			cout << "Grey!";
+		}
+	}
+
 
 
 
