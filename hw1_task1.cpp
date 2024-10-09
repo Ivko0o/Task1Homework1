@@ -11,7 +11,8 @@ int main()
 	float inputNumber_Y = 0.0;
 	float sum_Xsquared_and_Ysquared = 0.0;
 	float radius = 4.0;
-	float triangleSide = 3.0;
+	float triangleSideА = 3.0;
+	float triangleSideB = -3.0;
 	float squaredRadius = 0.0;
 	float eps = 1e-3;
 	float inclinationRadiusO_B = 0.0;
@@ -32,13 +33,14 @@ int main()
 	CheckCircleCoordinates(inputNumber_X, inputNumber_Y, radius, sum_Xsquared_and_Ysquared, squaredRadius);
 
 	//Calculates the line from the axis X to the point B
-	float lineX_B = sqrt((radius * radius) - (triangleSide * triangleSide));                // Тhis is needed so we can find the coordinate of dot B
+	float lineX_B = sqrt((radius * radius) - (triangleSideА * triangleSideА));                // Тhis is needed so we can find the coordinate of dot B
 
 	//Calculates the inclination of the dot given by the user
 	inclinationUser = inputNumber_Y / inputNumber_X;
 
 	//Calculates the inclination of the radius
-	inclinationRadiusO_B = lineX_B / triangleSide;
+	inclinationRadiusO_B = lineX_B / triangleSideА;								//This can be used for the radius O-D as well
+	inclinationRadiusO_C = lineX_B / triangleSideB;
 
 
 	// If X is bigger than 4 and smalled than -4 it doesn`t matter what the value of Y will be cause it will be always out of the graph
@@ -79,12 +81,24 @@ int main()
 			cout << "Green!";
 		}
 		// Checks if the dot is in the Yellow area
-		if (inclinationUser < inclinationRadiusO_B && inputNumber_X < 3) {
+		if (inclinationUser < inclinationRadiusO_B && inputNumber_X < 3 && inputNumber_X > 0) {
 			cout << "Yellow!";
 		}
 		// Checks if the dot is in the Purple area
 		if (inclinationUser < inclinationRadiusO_B && inputNumber_X > 3) {
 			cout << "Purple!";
+		}
+		// Checks if the dot is in the Red area
+		if (inclinationUser < inclinationRadiusO_C && inputNumber_Y < 4) {
+			cout << "Red!";
+		}
+		//Checks if the dot is in the Pink area
+		if (inclinationUser > inclinationRadiusO_C && inclinationUser < inclinationRadiusO_B && inputNumber_X > -3) {
+			cout << "Pink!";
+		}
+		//Checks if the dot is in the Empty space of the circle
+		if (inclinationUser > inclinationRadiusO_C && inclinationUser < inclinationRadiusO_B && inputNumber_X < -3) {
+			cout << "Outside!";
 		}
 	}
 
@@ -97,3 +111,7 @@ void CheckCircleCoordinates(float x, float y, float radius, float& sum_Xsquared_
 	sum_Xsquared_and_Ysquared = (x * x) + (y * y);
 	squaredRadius = radius * radius;
 }
+
+
+
+
